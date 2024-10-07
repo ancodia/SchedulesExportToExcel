@@ -120,46 +120,64 @@ namespace SchedulesExportToExcel
 
                     using (var reader = new StreamReader(tempCsvFilePath))
                     {
-                        int row = 0;
-
+                        // Read all lines into an array
+                        var lines = new List<string>();
                         while (!reader.EndOfStream)
                         {
-                            var line = reader.ReadLine();
-                            var cells = line.Split(',');
+                            lines.Add(reader.ReadLine());
+                        }
 
-                            for (int col = 0; col < cells.Length; col++)
+                        // Prepare a list for batch writing
+                        var rowCount = lines.Count;
+                        var colCount = lines[0].Split(',').Length; // Assuming all rows have the same number of columns
+                        var data = new List<object[]>(rowCount);
+
+                        for (int row = 0; row < rowCount; row++)
+                        {
+                            var cells = lines[row].Split(',');
+                            var rowData = new object[colCount];
+
+                            for (int col = 0; col < colCount; col++)
                             {
-                                string cellValue = cells[col].Trim(); 
+                                string cellValue = cells[col].Trim();
 
                                 if (!numbersAsStrings)
                                 {
                                     // Attempt to convert cell values to numeric types
                                     if (double.TryParse(cellValue, out double doubleValue))
                                     {
-                                        worksheet.Cells[row + 1, col + 1].Value = doubleValue;
+                                        rowData[col] = doubleValue;
                                     }
                                     else if (int.TryParse(cellValue, out int intValue))
                                     {
-                                        worksheet.Cells[row + 1, col + 1].Value = intValue;
+                                        rowData[col] = intValue;
                                     }
                                     else
                                     {
-                                        worksheet.Cells[row + 1, col + 1].Value = cellValue;
+                                        rowData[col] = cellValue;
                                     }
                                 }
                                 else
                                 {
-                                    worksheet.Cells[row + 1, col + 1].Value = cellValue;
+                                    rowData[col] = cellValue;
                                 }
                             }
 
-                            row++;
+                            data.Add(rowData);
                         }
+
+                        // Write the entire data list to the worksheet in one go
+                        var startRow = 1;
+                        var startCol = 1;
+
+                        var range = worksheet.Cells[startRow, startCol, startRow + rowCount - 1, startCol + colCount - 1];
+                        range.LoadFromArrays(data);
                     }
 
                     File.Delete(tempCsvFilePath);
                 }
 
+                Directory.CreateDirectory(Path.GetDirectoryName(filePath));
                 excelPackage.SaveAs(excelFile);
             }
 

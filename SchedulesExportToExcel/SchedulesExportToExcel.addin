@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <RevitAddIns>
   <AddIn Type="Command">
-    <Text>Command SchedulesExportToExcel</Text>
+    <Text>Export Schedules to Excel</Text>
     <Description>Some description for SchedulesExportToExcel</Description>
     <Assembly>SchedulesExportToExcel.dll</Assembly>
     <FullClassName>SchedulesExportToExcel.Command</FullClassName>

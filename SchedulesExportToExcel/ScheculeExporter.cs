@@ -19,7 +19,7 @@ namespace ScheduleExporter
             InitializeComponent();
 
             // Default excel filename
-            textBoxFilePath.Text = $"SchedulesExport-{DateTime.UtcNow.ToString("yyyyMMddHHmmss")}.xlsx";
+            textBoxFilePath.Text = $@"C:\ScheduleExports\{DateTime.UtcNow:yyyyMMddHHmmss}.xlsx";
 
             // Store the original schedule names
             _originalScheduleNames = scheduleNames;
