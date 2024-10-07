@@ -104,11 +104,10 @@ namespace SchedulesExportToExcel
                         excelPackage.Workbook.Worksheets.Delete(scheduleName);
                     }
 
-                    // Define the directory and CSV file path
+                    // Export the schedule to CSV
                     string tempDirectory = Path.GetTempPath();
                     string tempCsvFilePath = Path.Combine(tempDirectory, $"{scheduleName}.csv");
 
-                    // Export the schedule to CSV
                     ViewScheduleExportOptions exportOptions = new ViewScheduleExportOptions();
                     exportOptions.Title = false;
                     exportOptions.FieldDelimiter = ",";
@@ -118,33 +117,43 @@ namespace SchedulesExportToExcel
                     // Add new worksheet at the start of the excel workbook
                     worksheet = excelPackage.Workbook.Worksheets.Add(scheduleName);
                     excelPackage.Workbook.Worksheets.MoveToStart(scheduleName);
-                    //worksheet.Cells["A1"].LoadFromText(new FileInfo(tempCsvFilePath));
 
-                    // Load the CSV file into an array
-                    var csvLines = File.ReadAllLines(tempCsvFilePath);
-
-                    // Load data into the worksheet
-                    for (int row = 0; row < csvLines.Length; row++)
+                    using (var reader = new StreamReader(tempCsvFilePath))
                     {
-                        var cells = csvLines[row].Split(',');
+                        int row = 0;
 
-                        for (int col = 0; col < cells.Length; col++)
+                        while (!reader.EndOfStream)
                         {
-                            string cellValue = cells[col].Trim();
-                            bool isNumeric = double.TryParse(cellValue, out double numericValue);
+                            var line = reader.ReadLine();
+                            var cells = line.Split(',');
 
-                            if (!numbersAsStrings)
+                            for (int col = 0; col < cells.Length; col++)
                             {
-                                // Convert numeric values if present
-                                worksheet.Cells[row + 1, col + 1].Value =
-                                    double.TryParse(cellValue, out double doubleValue) ? doubleValue :
-                                    int.TryParse(cellValue, out int intValue) ? intValue :
-                                    (object)cellValue;
+                                string cellValue = cells[col].Trim(); 
+
+                                if (!numbersAsStrings)
+                                {
+                                    // Attempt to convert cell values to numeric types
+                                    if (double.TryParse(cellValue, out double doubleValue))
+                                    {
+                                        worksheet.Cells[row + 1, col + 1].Value = doubleValue;
+                                    }
+                                    else if (int.TryParse(cellValue, out int intValue))
+                                    {
+                                        worksheet.Cells[row + 1, col + 1].Value = intValue;
+                                    }
+                                    else
+                                    {
+                                        worksheet.Cells[row + 1, col + 1].Value = cellValue;
+                                    }
+                                }
+                                else
+                                {
+                                    worksheet.Cells[row + 1, col + 1].Value = cellValue;
+                                }
                             }
-                            else
-                            {
-                                worksheet.Cells[row + 1, col + 1].Value = cellValue;
-                            }
+
+                            row++;
                         }
                     }
 
@@ -167,8 +176,7 @@ namespace SchedulesExportToExcel
             // Replace characters that are not supported in sheet names
             string sanitized = Regex.Replace(name, @"[:\\/[\]*?]", "");
 
-            // Trim to Excel's 31-character limit
-            return sanitized.Length > 31 ? sanitized.Substring(0, 31) : sanitized;
+            return sanitized;
         }
 
         private bool IsFileOpen(string filePath)

@@ -18,6 +18,9 @@ namespace ScheduleExporter
         {
             InitializeComponent();
 
+            // Default excel filename
+            textBoxFilePath.Text = $"SchedulesExport-{DateTime.UtcNow.ToString("yyyyMMddHHmmss")}.xlsx";
+
             // Store the original schedule names
             _originalScheduleNames = scheduleNames;
 
@@ -82,9 +85,8 @@ namespace ScheduleExporter
             // 
             this.textBoxFilePath.Location = new System.Drawing.Point(216, 86);
             this.textBoxFilePath.Name = "textBoxFilePath";
-            this.textBoxFilePath.Size = new System.Drawing.Size(310, 31);
+            this.textBoxFilePath.Size = new System.Drawing.Size(411, 31);
             this.textBoxFilePath.TabIndex = 3;
-            this.textBoxFilePath.Text = "SchedulesExport.xlsx";
             // 
             // labelSchedules
             // 
@@ -103,7 +105,7 @@ namespace ScheduleExporter
             this.checkedListBoxSchedules.Location = new System.Drawing.Point(12, 165);
             this.checkedListBoxSchedules.Name = "checkedListBoxSchedules";
             this.checkedListBoxSchedules.ScrollAlwaysVisible = true;
-            this.checkedListBoxSchedules.Size = new System.Drawing.Size(514, 228);
+            this.checkedListBoxSchedules.Size = new System.Drawing.Size(615, 228);
             this.checkedListBoxSchedules.TabIndex = 5;
             // 
             // checkBoxWriteAsString
@@ -130,7 +132,7 @@ namespace ScheduleExporter
             // 
             // buttonWrite
             // 
-            this.buttonWrite.Location = new System.Drawing.Point(430, 441);
+            this.buttonWrite.Location = new System.Drawing.Point(527, 432);
             this.buttonWrite.Name = "buttonWrite";
             this.buttonWrite.Size = new System.Drawing.Size(100, 30);
             this.buttonWrite.TabIndex = 10;
@@ -141,7 +143,7 @@ namespace ScheduleExporter
             // checkBoxSelectAll
             // 
             this.checkBoxSelectAll.AutoSize = true;
-            this.checkBoxSelectAll.Location = new System.Drawing.Point(396, 126);
+            this.checkBoxSelectAll.Location = new System.Drawing.Point(493, 130);
             this.checkBoxSelectAll.Name = "checkBoxSelectAll";
             this.checkBoxSelectAll.Size = new System.Drawing.Size(134, 29);
             this.checkBoxSelectAll.TabIndex = 8;
@@ -151,7 +153,7 @@ namespace ScheduleExporter
             // 
             // ExportForm
             // 
-            this.ClientSize = new System.Drawing.Size(550, 492);
+            this.ClientSize = new System.Drawing.Size(649, 480);
             this.Controls.Add(this.buttonWrite);
             this.Controls.Add(this.labelWriteAsString);
             this.Controls.Add(this.checkBoxWriteAsString);
