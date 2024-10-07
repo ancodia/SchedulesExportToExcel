@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Command">
+    <Text>Command SchedulesExportToExcel</Text>
+    <Description>Some description for SchedulesExportToExcel</Description>
+    <Assembly>SchedulesExportToExcel.dll</Assembly>
+    <FullClassName>SchedulesExportToExcel.Command</FullClassName>
+    <ClientId>05ffc282-3530-45dd-a005-e5deb7471eb7</ClientId>
+    <VendorId>com.typepad.thebuildingcoder</VendorId>
+    <VendorDescription>The Building Coder, http://thebuildingcoder.typepad.com</VendorDescription>
+  </AddIn>
+  <AddIn Type="Application">
+    <Name>Application SchedulesExportToExcel</Name>
+    <Assembly>SchedulesExportToExcel.dll</Assembly>
+    <FullClassName>SchedulesExportToExcel.App</FullClassName>
+    <ClientId>269dc7af-8e10-453d-8265-67af26e215a5</ClientId>
+    <VendorId>com.typepad.thebuildingcoder</VendorId>
+    <VendorDescription>The Building Coder, http://thebuildingcoder.typepad.com</VendorDescription>
+  </AddIn>
+</RevitAddIns>
