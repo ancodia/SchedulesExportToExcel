@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Command">
+    <Text>Export Schedules to Excel</Text>
+    <Description>Opens a modal with a list of schedules available to export</Description>
+    <Assembly>SchedulesExcelExport.dll</Assembly>
+    <FullClassName>SchedulesExcelExport.Command</FullClassName>
+    <ClientId>05ffc282-3530-45dd-a005-e5deb7471eb7</ClientId>
+    <VendorId>ancodia</VendorId>
+    <VendorDescription>https://github.com/ancodia</VendorDescription>
+  </AddIn>
+  <AddIn Type="Application">
+    <Name>Application SchedulesExcelExport</Name>
+    <Assembly>SchedulesExcelExport.dll</Assembly>
+    <FullClassName>SchedulesExcelExport.App</FullClassName>
+    <ClientId>269dc7af-8e10-453d-8265-67af26e215a5</ClientId>
+    <VendorId>ancodia</VendorId>
+    <VendorDescription>https://github.com/ancodia</VendorDescription>
+  </AddIn>
+</RevitAddIns>

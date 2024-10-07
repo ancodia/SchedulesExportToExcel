@@ -1,4 +1,3 @@
-#region Namespaces
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
@@ -12,9 +11,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
-#endregion
-
-namespace SchedulesExportToExcel
+namespace SchedulesExcelExport
 {
     [Transaction(TransactionMode.Manual)]
     public class Command : IExternalCommand
