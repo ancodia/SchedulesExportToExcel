@@ -14,7 +14,7 @@ using System.Windows.Forms;
 namespace SchedulesExcelExport
 {
     [Transaction(TransactionMode.Manual)]
-    public class Command : IExternalCommand
+    public partial class Command : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,
@@ -42,7 +42,7 @@ namespace SchedulesExcelExport
             try
             {
                 // Initialize and show the WinForm
-                ExportForm exportForm = new ExportForm(scheduleNames);
+                ExportForm exportForm = new(scheduleNames);
                 var result = exportForm.ShowDialog();
 
                 if (result == DialogResult.OK)
@@ -61,7 +61,7 @@ namespace SchedulesExcelExport
             }
             catch (Exception ex)
             {
-                TaskDialog.Show("Error", ex.Message);
+                Autodesk.Revit.UI.TaskDialog.Show("Error", ex.Message);
                 return Result.Failed;
             }
 
@@ -72,9 +72,9 @@ namespace SchedulesExcelExport
         {
             ExcelPackage.LicenseContext = LicenseContext.Commercial;
 
-            using (ExcelPackage excelPackage = new ExcelPackage())
+            using (ExcelPackage excelPackage = new())
             {
-                FileInfo excelFile = new FileInfo(filePath);
+                FileInfo excelFile = new(filePath);
                 if (excelFile.Exists)
                 {
                     if (IsFileOpen(filePath))
@@ -84,10 +84,8 @@ namespace SchedulesExcelExport
                     }
 
                     // Load content of existing file if it exists
-                    using (FileStream stream = new FileStream(filePath, FileMode.Open))
-                    {
-                        excelPackage.Load(stream);
-                    }
+                    using FileStream stream = new(filePath, FileMode.Open);
+                    excelPackage.Load(stream);
                 }
 
                 foreach (ViewSchedule schedule in schedules)
@@ -105,10 +103,12 @@ namespace SchedulesExcelExport
                     string tempDirectory = Path.GetTempPath();
                     string tempCsvFilePath = Path.Combine(tempDirectory, $"{scheduleName}.csv");
 
-                    ViewScheduleExportOptions exportOptions = new ViewScheduleExportOptions();
-                    exportOptions.Title = false;
-                    exportOptions.FieldDelimiter = ",";
-                    exportOptions.TextQualifier = ExportTextQualifier.None;
+                    ViewScheduleExportOptions exportOptions = new ViewScheduleExportOptions
+                    {
+                        Title = false,
+                        FieldDelimiter = ",",
+                        TextQualifier = ExportTextQualifier.None
+                    };
                     schedule.Export(tempDirectory, $"{scheduleName}.csv", exportOptions);
 
                     // Add new worksheet at the start of the excel workbook
@@ -186,7 +186,7 @@ namespace SchedulesExcelExport
             });
         }
 
-        private string SanitizeWorksheetName(string name)
+        private static string SanitizeWorksheetName(string name)
         {
             // Replace characters that are not supported in sheet names
             string sanitized = Regex.Replace(name, @"[:\\/[\]*?]", "");
@@ -194,14 +194,12 @@ namespace SchedulesExcelExport
             return sanitized;
         }
 
-        private bool IsFileOpen(string filePath)
+        private static bool IsFileOpen(string filePath)
         {
             try
             {
-                using (FileStream stream = new FileStream(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
-                {
-                    stream.Close();
-                }
+                using FileStream stream = new(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+                stream.Close();
             }
             catch (IOException)
             {

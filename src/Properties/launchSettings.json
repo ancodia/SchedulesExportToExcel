@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SchedulesExcelExport": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

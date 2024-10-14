@@ -3,27 +3,64 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchedulesExcelExport", "SchedulesExportToExcel\SchedulesExcelExport.csproj", "{DE87FF60-96F6-4DC9-9C20-B26EA9464311}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchedulesExcelExport", "src\SchedulesExcelExport.csproj", "{DE87FF60-96F6-4DC9-9C20-B26EA9464311}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SchedulesExcelExportSetup", "SchedulesExcelExportSetup\SchedulesExcelExportSetup.vdproj", "{A7586479-107A-4E67-BEE6-F625F40F3CFA}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InnoSetup", "InnoSetup", "{31818A1B-FE10-436F-A3F6-0C6DDC24D2F9}"
+	ProjectSection(SolutionItems) = preProject
+		InnoSetup\SchedulesExcelExport.iss = InnoSetup\SchedulesExcelExport.iss
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug-2020|Any CPU = Debug-2020|Any CPU
+		Debug-2021|Any CPU = Debug-2021|Any CPU
+		Debug-2022|Any CPU = Debug-2022|Any CPU
+		Debug-2023|Any CPU = Debug-2023|Any CPU
+		Debug-2024|Any CPU = Debug-2024|Any CPU
+		Debug-2025|Any CPU = Debug-2025|Any CPU
 		Release|Any CPU = Release|Any CPU
+		Release-2020|Any CPU = Release-2020|Any CPU
+		Release-2021|Any CPU = Release-2021|Any CPU
+		Release-2022|Any CPU = Release-2022|Any CPU
+		Release-2023|Any CPU = Release-2023|Any CPU
+		Release-2024|Any CPU = Release-2024|Any CPU
+		Release-2025|Any CPU = Release-2025|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{DE87FF60-96F6-4DC9-9C20-B26EA9464311}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DE87FF60-96F6-4DC9-9C20-B26EA9464311}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE87FF60-96F6-4DC9-9C20-B26EA9464311}.Debug-2020|Any CPU.ActiveCfg = Debug-2020|Any CPU
+		{DE87FF60-96F6-4DC9-9C20-B26EA9464311}.Debug-2020|Any CPU.Build.0 = Debug-2020|Any CPU
+		{DE87FF60-96F6-4DC9-9C20-B26EA9464311}.Debug-2021|Any CPU.ActiveCfg = Debug-2021|Any CPU
+		{DE87FF60-96F6-4DC9-9C20-B26EA9464311}.Debug-2021|Any CPU.Build.0 = Debug-2021|Any CPU
+		{DE87FF60-96F6-4DC9-9C20-B26EA9464311}.Debug-2022|Any CPU.ActiveCfg = Debug-2022|Any CPU
+		{DE87FF60-96F6-4DC9-9C20-B26EA9464311}.Debug-2022|Any CPU.Build.0 = Debug-2022|Any CPU
+		{DE87FF60-96F6-4DC9-9C20-B26EA9464311}.Debug-2023|Any CPU.ActiveCfg = Debug-2023|Any CPU
+		{DE87FF60-96F6-4DC9-9C20-B26EA9464311}.Debug-2023|Any CPU.Build.0 = Debug-2023|Any CPU
+		{DE87FF60-96F6-4DC9-9C20-B26EA9464311}.Debug-2024|Any CPU.ActiveCfg = Debug-2024|Any CPU
+		{DE87FF60-96F6-4DC9-9C20-B26EA9464311}.Debug-2024|Any CPU.Build.0 = Debug-2024|Any CPU
+		{DE87FF60-96F6-4DC9-9C20-B26EA9464311}.Debug-2025|Any CPU.ActiveCfg = Debug-2025|Any CPU
+		{DE87FF60-96F6-4DC9-9C20-B26EA9464311}.Debug-2025|Any CPU.Build.0 = Debug-2025|Any CPU
 		{DE87FF60-96F6-4DC9-9C20-B26EA9464311}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE87FF60-96F6-4DC9-9C20-B26EA9464311}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A7586479-107A-4E67-BEE6-F625F40F3CFA}.Debug|Any CPU.ActiveCfg = Debug
-		{A7586479-107A-4E67-BEE6-F625F40F3CFA}.Release|Any CPU.ActiveCfg = Release
+		{DE87FF60-96F6-4DC9-9C20-B26EA9464311}.Release-2020|Any CPU.ActiveCfg = Release-2020|Any CPU
+		{DE87FF60-96F6-4DC9-9C20-B26EA9464311}.Release-2020|Any CPU.Build.0 = Release-2020|Any CPU
+		{DE87FF60-96F6-4DC9-9C20-B26EA9464311}.Release-2021|Any CPU.ActiveCfg = Release-2021|Any CPU
+		{DE87FF60-96F6-4DC9-9C20-B26EA9464311}.Release-2021|Any CPU.Build.0 = Release-2021|Any CPU
+		{DE87FF60-96F6-4DC9-9C20-B26EA9464311}.Release-2022|Any CPU.ActiveCfg = Release-2022|Any CPU
+		{DE87FF60-96F6-4DC9-9C20-B26EA9464311}.Release-2022|Any CPU.Build.0 = Release-2022|Any CPU
+		{DE87FF60-96F6-4DC9-9C20-B26EA9464311}.Release-2023|Any CPU.ActiveCfg = Release-2023|Any CPU
+		{DE87FF60-96F6-4DC9-9C20-B26EA9464311}.Release-2023|Any CPU.Build.0 = Release-2023|Any CPU
+		{DE87FF60-96F6-4DC9-9C20-B26EA9464311}.Release-2024|Any CPU.ActiveCfg = Release-2024|Any CPU
+		{DE87FF60-96F6-4DC9-9C20-B26EA9464311}.Release-2024|Any CPU.Build.0 = Release-2024|Any CPU
+		{DE87FF60-96F6-4DC9-9C20-B26EA9464311}.Release-2025|Any CPU.ActiveCfg = Release-2025|Any CPU
+		{DE87FF60-96F6-4DC9-9C20-B26EA9464311}.Release-2025|Any CPU.Build.0 = Release-2025|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {7993D533-4345-4D51-A5A5-AF3D4CD88399}
+		SolutionGuid = {09F55F4C-904A-4908-9CD1-0E78EB9F225A}
 	EndGlobalSection
 EndGlobal
