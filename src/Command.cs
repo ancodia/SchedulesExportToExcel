@@ -48,6 +48,7 @@ namespace SchedulesExcelExport
                 {
                     string filePath = exportForm.SelectedFilePath;
                     bool writeAsString = exportForm.WriteAsString;
+                    bool excludeEmptyAllRows = exportForm.ExcludeEmptyRows;
                     List<string> selectedScheduleNames = exportForm.SelectedSchedules;
 
                     
@@ -55,7 +56,7 @@ namespace SchedulesExcelExport
                         .Where(schedule => selectedScheduleNames.Contains(schedule.Name))
                         .ToList();
 
-                    ExportToExcel(selectedSchedules, filePath, writeAsString);
+                    ExportToExcel(selectedSchedules, filePath, writeAsString, excludeEmptyAllRows);
                 }
             }
             catch (Exception ex)
@@ -67,7 +68,12 @@ namespace SchedulesExcelExport
             return Result.Succeeded;
         }
 
-        public void ExportToExcel(List<ViewSchedule> schedules, string filePath = null, bool numbersAsStrings = true)
+        public void ExportToExcel(
+            List<ViewSchedule> schedules, 
+            string filePath = null, 
+            bool numbersAsStrings = true,
+            bool excludeEmptyAllRows = false
+        )
         {
             ExcelPackage.LicenseContext = LicenseContext.Commercial;
 
@@ -95,7 +101,7 @@ namespace SchedulesExcelExport
                     string scheduleName = SanitizeWorksheetName(schedule.Name);
                     var worksheet = excelPackage.Workbook.Worksheets[scheduleName] ?? excelPackage.Workbook.Worksheets.Add(scheduleName);
 
-                    var data = PrepareScheduleData(schedule, numbersAsStrings);
+                    var data = PrepareScheduleData(schedule, numbersAsStrings, excludeEmptyAllRows);
 
                     // Write data directly to the worksheet
                     var startRow = 1;
@@ -123,7 +129,11 @@ namespace SchedulesExcelExport
             });
         }
 
-        private List<List<object>> PrepareScheduleData(ViewSchedule schedule, bool numbersAsStrings)
+        private List<List<object>> PrepareScheduleData(
+            ViewSchedule schedule,
+            bool numbersAsStrings = false,
+            bool excludeAllEmptyRows = false
+        )
         {
             TableData tableData = schedule.GetTableData();
             TableSectionData sectionData = tableData.GetSectionData(SectionType.Body);
@@ -135,37 +145,39 @@ namespace SchedulesExcelExport
 
             for (int row = 0; row < rowCount; row++)
             {
-                var rowData = new List<object>(colCount);
-
-                for (int col = 0; col < colCount; col++)
+                if (!IsRowEmpty(sectionData, row, colCount, excludeAllEmptyRows))
                 {
-                    string cellValue = sectionData.GetCellText(row, col).Trim();
+                    var rowData = new List<object>(colCount);
 
-                    if (!numbersAsStrings)
+                    for (int col = 0; col < colCount; col++)
                     {
-                        // Attempt to convert cell value to numeric types
-                        if (double.TryParse(cellValue, out double doubleValue))
+                        string cellValue = sectionData.GetCellText(row, col).Trim();
+
+                        if (!numbersAsStrings)
                         {
-                            rowData.Add(doubleValue);
-                        }
-                        else if (int.TryParse(cellValue, out int intValue))
-                        {
-                            rowData.Add(intValue);
+                            // Attempt to convert cell value to numeric types
+                            if (double.TryParse(cellValue, out double doubleValue))
+                            {
+                                rowData.Add(doubleValue);
+                            }
+                            else if (int.TryParse(cellValue, out int intValue))
+                            {
+                                rowData.Add(intValue);
+                            }
+                            else
+                            {
+                                rowData.Add(cellValue);
+                            }
                         }
                         else
                         {
                             rowData.Add(cellValue);
                         }
                     }
-                    else
-                    {
-                        rowData.Add(cellValue);
-                    }
+
+                    data.Add(rowData);
                 }
-
-                data.Add(rowData);
             }
-
             return data;
         }
 
@@ -190,6 +202,37 @@ namespace SchedulesExcelExport
                 return true;
             }
             return false;
+        }
+
+        /// <summary>
+        /// By default any empty header rows (i.e. no data in second row of `sectionData`) will be excluded with this method.
+        /// Optionally (if `checkAllRows==true`) this method will flag all other rows with no data for exclusion.
+        /// </summary>
+        private static bool IsRowEmpty(
+            TableSectionData sectionData,
+            int rowIndex, 
+            int colCount,
+            bool checkAllRows = false
+        )
+        {
+            if (checkAllRows || rowIndex == 1)
+            {
+                for (int colIndex = 0; colIndex < colCount; colIndex++)
+                {
+                    string cellValue = sectionData.GetCellText(rowIndex, colIndex);
+
+                    if (!string.IsNullOrWhiteSpace(cellValue))
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
