@@ -10,6 +10,7 @@
 		<OutputPath>..\output\$(Configuration)</OutputPath>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+		<TargetFramework>net8.0-windows;net48-windows;net72-windows;</TargetFramework>
 		<Revit2025 Condition="$(Configuration.Contains('2025'))">true</Revit2025>
 		<Revit2024 Condition="$(Configuration.Contains('2024'))">true</Revit2024>
 		<Revit2023 Condition="$(Configuration.Contains('2023'))">true</Revit2023>
@@ -30,12 +31,8 @@
 		<TargetFramework Condition="'$(RevitVersion)' == '' Or '$(RevitVersion)' == '2025'">net8.0-windows</TargetFramework>
 		<TargetFramework Condition="'$(RevitVersion)' == 2024 Or '$(RevitVersion)' == '2023' Or '$(RevitVersion)' == '2022' Or '$(RevitVersion)' == '2021'">net48-windows</TargetFramework>
 		<TargetFramework Condition="'$(RevitVersion)' == '2020'">net472-windows</TargetFramework>
+		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
 	</PropertyGroup>
-
-	<Target Name="LogAllProperties" AfterTargets="Build">
-		<Message Text="Configuration: $(Configuration)" Importance="High" />
-		<Message Text="Revit Version: $(RevitVersion)" Importance="High" />
-	</Target>
 
 	<ItemGroup>
 		<PackageReference Condition="'$(Revit2025)' == true" Include="Revit_All_Main_Versions_API_x64" Version="2025.0.0" />
@@ -45,6 +42,7 @@
 		<PackageReference Condition="'$(Revit2021)' == true" Include="Revit_All_Main_Versions_API_x64" Version="2021.0.0" />
 		<PackageReference Condition="'$(Revit2020)' == true" Include="Revit_All_Main_Versions_API_x64" Version="2020.0.1" />
 		<PackageReference Include="EPPlus" Version="7.4.1" />
+		<PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
