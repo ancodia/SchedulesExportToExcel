@@ -64,5 +64,5 @@ jobs:
     - name: Upload Compiled Installer
       uses: actions/upload-artifact@v4
       with:
-        name: SchedulesExcelExport.Revit
+        name: SchedulesExcelExport.Revit.Addin.Installer
         path: "./output/*.exe"
