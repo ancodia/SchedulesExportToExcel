@@ -22,8 +22,6 @@
 #define RevitAddin25      RevitAddinFolder+"\2025\"
 
 [Setup]
-; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
-; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId=DAF7B9CA-9E11-41BA-9263-93FBCF68D74C
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
@@ -39,10 +37,8 @@ DisableProgramGroupPage=yes
 DisableWelcomePage=no
 OutputDir={#Repository}\output
 OutputBaseFilename=SchedulesExcelExport.Revit
-;SetupIconFile={#Repository}\Assets\openproject.ico
 Compression=lzma
 SolidCompression=yes
-;WizardImageFile={#Repository}\Assets\openproject-bim-banner.bmp
 ChangesAssociations=yes
 
 [Languages]
@@ -57,20 +53,33 @@ Name: revit24; Description: Addin for Autodesk Revit 2024;  Types: full
 Name: revit25; Description: Addin for Autodesk Revit 2025;  Types: full
 
 [Files]
-Source: "{#Repository}\output\Release-2020\*.dll"; DestDir: "{#RevitFolder20}"; Flags: ignoreversion recursesubdirs; Components: revit20
+; Include only the .dll files totally necessary for running within Revit
+Source: "{#Repository}\output\Release-2020\EPPlus*.dll"; DestDir: "{#RevitFolder20}"; Flags: ignoreversion recursesubdirs; Components: revit20
+Source: "{#Repository}\output\Release-2020\{#RevitAppName}.dll"; DestDir: "{#RevitFolder20}"; Flags: ignoreversion recursesubdirs; Components: revit20
+Source: "{#Repository}\output\Release-2020\Microsoft.IO.RecyclableMemoryStream.dll"; DestDir: "{#RevitFolder20}"; Flags: ignoreversion; Components: revit20
 Source: "{#Repository}\src\*.addin"; DestDir: "{#RevitAddin20}"; Flags: ignoreversion; Components: revit20
 
-Source: "{#Repository}\output\Release-2021\*.dll"; DestDir: "{#RevitFolder21}"; Flags: ignoreversion recursesubdirs; Components: revit21
+Source: "{#Repository}\output\Release-2021\EPPlus*.dll"; DestDir: "{#RevitFolder21}"; Flags: ignoreversion recursesubdirs; Components: revit21
+Source: "{#Repository}\output\Release-2021\{#RevitAppName}.dll"; DestDir: "{#RevitFolder21}"; Flags: ignoreversion recursesubdirs; Components: revit21
+Source: "{#Repository}\output\Release-2021\Microsoft.IO.RecyclableMemoryStream.dll"; DestDir: "{#RevitFolder21}"; Flags: ignoreversion; Components: revit21
 Source: "{#Repository}\src\*.addin"; DestDir: "{#RevitAddin21}"; Flags: ignoreversion; Components: revit21
 
-Source: "{#Repository}\output\Release-2022\*.dll"; DestDir: "{#RevitFolder22}"; Flags: ignoreversion recursesubdirs; Components: revit22
+Source: "{#Repository}\output\Release-2022\EPPlus*.dll"; DestDir: "{#RevitFolder22}"; Flags: ignoreversion recursesubdirs; Components: revit22
+Source: "{#Repository}\output\Release-2022\{#RevitAppName}.dll"; DestDir: "{#RevitFolder22}"; Flags: ignoreversion recursesubdirs; Components: revit22
+Source: "{#Repository}\output\Release-2022\Microsoft.IO.RecyclableMemoryStream.dll"; DestDir: "{#RevitFolder22}"; Flags: ignoreversion; Components: revit22
 Source: "{#Repository}\src\*.addin"; DestDir: "{#RevitAddin22}"; Flags: ignoreversion; Components: revit22
 
-Source: "{#Repository}\output\Release-2023\*.dll"; DestDir: "{#RevitFolder23}"; Flags: ignoreversion recursesubdirs; Components: revit23
+Source: "{#Repository}\output\Release-2023\EPPlus*.dll"; DestDir: "{#RevitFolder23}"; Flags: ignoreversion recursesubdirs; Components: revit23
+Source: "{#Repository}\output\Release-2023\{#RevitAppName}.dll"; DestDir: "{#RevitFolder23}"; Flags: ignoreversion recursesubdirs; Components: revit23
+Source: "{#Repository}\output\Release-2023\Microsoft.IO.RecyclableMemoryStream.dll"; DestDir: "{#RevitFolder23}"; Flags: ignoreversion; Components: revit23
 Source: "{#Repository}\src\*.addin"; DestDir: "{#RevitAddin23}"; Flags: ignoreversion; Components: revit23
 
-Source: "{#Repository}\output\Release-2024\*.dll"; DestDir: "{#RevitFolder24}"; Flags: ignoreversion recursesubdirs; Components: revit24 
+Source: "{#Repository}\output\Release-2024\EPPlus*.dll"; DestDir: "{#RevitFolder24}"; Flags: ignoreversion recursesubdirs; Components: revit24
+Source: "{#Repository}\output\Release-2024\{#RevitAppName}.dll"; DestDir: "{#RevitFolder24}"; Flags: ignoreversion recursesubdirs; Components: revit24
+Source: "{#Repository}\output\Release-2024\Microsoft.IO.RecyclableMemoryStream.dll"; DestDir: "{#RevitFolder24}"; Flags: ignoreversion; Components: revit24
 Source: "{#Repository}\src\*.addin"; DestDir: "{#RevitAddin24}"; Flags: ignoreversion; Components: revit24
 
-Source: "{#Repository}\output\Release-2025\*.dll"; DestDir: "{#RevitFolder25}"; Flags: ignoreversion recursesubdirs; Components: revit25
+Source: "{#Repository}\output\Release-2025\EPPlus*.dll"; DestDir: "{#RevitFolder25}"; Flags: ignoreversion recursesubdirs; Components: revit25
+Source: "{#Repository}\output\Release-2025\{#RevitAppName}.dll"; DestDir: "{#RevitFolder25}"; Flags: ignoreversion recursesubdirs; Components: revit25
+Source: "{#Repository}\output\Release-2025\Microsoft.IO.RecyclableMemoryStream.dll"; DestDir: "{#RevitFolder25}"; Flags: ignoreversion; Components: revit25
 Source: "{#Repository}\src\*.addin"; DestDir: "{#RevitAddin25}"; Flags: ignoreversion; Components: revit25
