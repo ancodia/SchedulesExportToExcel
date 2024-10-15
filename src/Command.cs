@@ -104,6 +104,14 @@ namespace SchedulesExcelExport
                 }
 
                 Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+
+                // Remove the default sheet "Sheet1" if it is present
+                ExcelWorksheet defaultSheet = excelPackage.Workbook.Worksheets["Sheet1"];
+                if (defaultSheet != null)
+                {
+                    excelPackage.Workbook.Worksheets.Delete(defaultSheet);
+                }
+
                 excelPackage.SaveAs(excelFile);
             }
 
