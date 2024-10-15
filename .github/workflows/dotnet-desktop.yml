@@ -36,7 +36,7 @@
 # For a complete CI/CD sample to get started with GitHub Action workflows for Desktop Applications,
 # refer to https://github.com/microsoft/github-actions-for-desktop-apps
 
-name: .NET Core Desktop
+name: Build DLLs
 
 on:
   push:
@@ -77,11 +77,12 @@ jobs:
       id: set_dotnet_version
       shell: pwsh
       run: |
-        if (${{ matrix.configuration }} -eq 'Release-2025') {
+        $config = "${{ matrix.configuration }}"
+        if ($config -eq 'Release-2025') {
           $dotnet_version = '7.x'
-        } elseif (${{ matrix.configuration }} -in @('Release-2024', 'Release-2023', 'Release-2022', 'Release-2021')) {
+        } elseif ($config -in @('Release-2024', 'Release-2023', 'Release-2022', 'Release-2021')) {
           $dotnet_version = '4.8.0'
-        } elseif (${{ matrix.configuration }} -eq 'Release-2020') {
+        } elseif ($config -eq 'Release-2020') {
           $dotnet_version = '4.7.2'
         }
         echo "dotnet_version=$dotnet_version" >> $GITHUB_ENV
