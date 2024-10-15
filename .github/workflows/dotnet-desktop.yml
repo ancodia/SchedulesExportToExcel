@@ -75,17 +75,16 @@ jobs:
 
     - name: Set .NET version
       id: set_dotnet_version
+      shell: pwsh
       run: |
-        if [ "${{ matrix.configuration }}" == "Release-2025" ]; then
-          echo "dotnet_version=7.x" >> $GITHUB_ENV
-        elif [ "${{ matrix.configuration }}" == "Release-2024" ] || \
-            [ "${{ matrix.configuration }}" == "Release-2023" ] || \
-            [ "${{ matrix.configuration }}" == "Release-2022" ] || \
-            [ "${{ matrix.configuration }}" == "Release-2021" ]; then
-            echo "dotnet_version=4.8.0" >> $GITHUB_ENV
-        elif [ "${{ matrix.configuration }}" == "Release-2020" ]; then
-          echo "dotnet_version=4.7.2" >> $GITHUB_ENV
-        fi
+        if (${{ matrix.configuration }} -eq 'Release-2025') {
+          $dotnet_version = '7.x'
+        } elseif (${{ matrix.configuration }} -in @('Release-2024', 'Release-2023', 'Release-2022', 'Release-2021')) {
+          $dotnet_version = '4.8.0'
+        } elseif (${{ matrix.configuration }} -eq 'Release-2020') {
+          $dotnet_version = '4.7.2'
+        }
+        echo "dotnet_version=$dotnet_version" >> $GITHUB_ENV
 
     # Install the .NET Core workload  
     - name: Setup .NET
