@@ -60,7 +60,7 @@ jobs:
       run: dotnet build --configuration ${{ matrix.configuration }}
 
     - name: Restore dependencies
-      run: dotnet restore --configuration ${{ matrix.configuration }} --verbosity minimal
+      run: dotnet restore --verbosity minimal
 
     - name: Build
       run: dotnet build --configuration ${{ matrix.configuration }} --no-restore --verbosity minimal
