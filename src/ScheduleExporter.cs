@@ -50,123 +50,125 @@ namespace ScheduleExporter
 
         private void InitializeComponent()
         {
-            this.labelTitle = new System.Windows.Forms.Label();
-            this.buttonSelectFile = new System.Windows.Forms.Button();
-            this.textBoxFilePath = new System.Windows.Forms.TextBox();
-            this.labelSchedules = new System.Windows.Forms.Label();
-            this.checkedListBoxSchedules = new System.Windows.Forms.CheckedListBox();
-            this.checkBoxWriteAsString = new System.Windows.Forms.CheckBox();
-            this.labelWriteAsString = new System.Windows.Forms.Label();
-            this.buttonWrite = new System.Windows.Forms.Button();
-            this.checkBoxSelectAll = new System.Windows.Forms.CheckBox();
-            this.SuspendLayout();
+            labelTitle = new Label();
+            buttonSelectFile = new Button();
+            textBoxFilePath = new TextBox();
+            labelSchedules = new Label();
+            checkedListBoxSchedules = new CheckedListBox();
+            checkBoxWriteAsString = new CheckBox();
+            labelWriteAsString = new Label();
+            buttonWrite = new Button();
+            checkBoxSelectAll = new CheckBox();
+            SuspendLayout();
             // 
             // labelTitle
             // 
-            this.labelTitle.AutoSize = true;
-            this.labelTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTitle.Location = new System.Drawing.Point(12, 20);
-            this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(545, 44);
-            this.labelTitle.TabIndex = 0;
-            this.labelTitle.Text = "Export schedules to Excel file";
+            labelTitle.AutoSize = true;
+            labelTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelTitle.Location = new System.Drawing.Point(12, 20);
+            labelTitle.Name = "labelTitle";
+            labelTitle.Size = new System.Drawing.Size(545, 44);
+            labelTitle.TabIndex = 0;
+            labelTitle.Text = "Export schedules to Excel file";
             // 
             // buttonSelectFile
             // 
-            this.buttonSelectFile.Location = new System.Drawing.Point(9, 86);
-            this.buttonSelectFile.Name = "buttonSelectFile";
-            this.buttonSelectFile.Size = new System.Drawing.Size(188, 31);
-            this.buttonSelectFile.TabIndex = 2;
-            this.buttonSelectFile.Text = "Select Excel File";
-            this.buttonSelectFile.UseVisualStyleBackColor = true;
-            this.buttonSelectFile.Click += new System.EventHandler(this.buttonSelectFile_Click);
+            buttonSelectFile.Location = new System.Drawing.Point(9, 86);
+            buttonSelectFile.Name = "buttonSelectFile";
+            buttonSelectFile.Size = new System.Drawing.Size(188, 31);
+            buttonSelectFile.TabIndex = 2;
+            buttonSelectFile.Text = "Select Excel File";
+            buttonSelectFile.UseVisualStyleBackColor = true;
+            buttonSelectFile.Click += buttonSelectFile_Click;
             // 
             // textBoxFilePath
             // 
-            this.textBoxFilePath.Location = new System.Drawing.Point(216, 86);
-            this.textBoxFilePath.Name = "textBoxFilePath";
-            this.textBoxFilePath.Size = new System.Drawing.Size(411, 31);
-            this.textBoxFilePath.TabIndex = 3;
+            textBoxFilePath.Location = new System.Drawing.Point(216, 86);
+            textBoxFilePath.Name = "textBoxFilePath";
+            textBoxFilePath.Size = new System.Drawing.Size(411, 39);
+            textBoxFilePath.TabIndex = 3;
             // 
             // labelSchedules
             // 
-            this.labelSchedules.AutoSize = true;
-            this.labelSchedules.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSchedules.Location = new System.Drawing.Point(8, 127);
-            this.labelSchedules.Name = "labelSchedules";
-            this.labelSchedules.Size = new System.Drawing.Size(206, 25);
-            this.labelSchedules.TabIndex = 4;
-            this.labelSchedules.Text = "Schedules to write";
+            labelSchedules.AutoSize = true;
+            labelSchedules.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelSchedules.Location = new System.Drawing.Point(8, 127);
+            labelSchedules.Name = "labelSchedules";
+            labelSchedules.Size = new System.Drawing.Size(206, 25);
+            labelSchedules.TabIndex = 4;
+            labelSchedules.Text = "Schedules to write";
             // 
             // checkedListBoxSchedules
             // 
-            this.checkedListBoxSchedules.CheckOnClick = true;
-            this.checkedListBoxSchedules.FormattingEnabled = true;
-            this.checkedListBoxSchedules.Location = new System.Drawing.Point(12, 165);
-            this.checkedListBoxSchedules.Name = "checkedListBoxSchedules";
-            this.checkedListBoxSchedules.ScrollAlwaysVisible = true;
-            this.checkedListBoxSchedules.Size = new System.Drawing.Size(615, 228);
-            this.checkedListBoxSchedules.TabIndex = 5;
+            checkedListBoxSchedules.CheckOnClick = true;
+            checkedListBoxSchedules.FormattingEnabled = true;
+            checkedListBoxSchedules.Location = new System.Drawing.Point(12, 165);
+            checkedListBoxSchedules.Name = "checkedListBoxSchedules";
+            checkedListBoxSchedules.ScrollAlwaysVisible = true;
+            checkedListBoxSchedules.Size = new System.Drawing.Size(615, 220);
+            checkedListBoxSchedules.TabIndex = 5;
             // 
             // checkBoxWriteAsString
             // 
-            this.checkBoxWriteAsString.AutoSize = true;
-            this.checkBoxWriteAsString.Checked = true;
-            this.checkBoxWriteAsString.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxWriteAsString.Location = new System.Drawing.Point(292, 399);
-            this.checkBoxWriteAsString.Name = "checkBoxWriteAsString";
-            this.checkBoxWriteAsString.Size = new System.Drawing.Size(115, 29);
-            this.checkBoxWriteAsString.TabIndex = 6;
-            this.checkBoxWriteAsString.Text = "Yes/No";
-            this.checkBoxWriteAsString.UseVisualStyleBackColor = true;
+            checkBoxWriteAsString.AutoSize = true;
+            checkBoxWriteAsString.Checked = true;
+            checkBoxWriteAsString.CheckState = CheckState.Checked;
+            checkBoxWriteAsString.Location = new System.Drawing.Point(292, 399);
+            checkBoxWriteAsString.Name = "checkBoxWriteAsString";
+            checkBoxWriteAsString.Size = new System.Drawing.Size(121, 36);
+            checkBoxWriteAsString.TabIndex = 6;
+            checkBoxWriteAsString.Text = "Yes/No";
+            checkBoxWriteAsString.UseVisualStyleBackColor = true;
             // 
             // labelWriteAsString
             // 
-            this.labelWriteAsString.AutoSize = true;
-            this.labelWriteAsString.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelWriteAsString.Location = new System.Drawing.Point(4, 399);
-            this.labelWriteAsString.Name = "labelWriteAsString";
-            this.labelWriteAsString.Size = new System.Drawing.Size(275, 25);
-            this.labelWriteAsString.TabIndex = 7;
-            this.labelWriteAsString.Text = "Write numbers as string?";
+            labelWriteAsString.AutoSize = true;
+            labelWriteAsString.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelWriteAsString.Location = new System.Drawing.Point(4, 399);
+            labelWriteAsString.Name = "labelWriteAsString";
+            labelWriteAsString.Size = new System.Drawing.Size(275, 25);
+            labelWriteAsString.TabIndex = 7;
+            labelWriteAsString.Text = "Write numbers as string?";
             // 
             // buttonWrite
             // 
-            this.buttonWrite.Location = new System.Drawing.Point(527, 432);
-            this.buttonWrite.Name = "buttonWrite";
-            this.buttonWrite.Size = new System.Drawing.Size(100, 30);
-            this.buttonWrite.TabIndex = 10;
-            this.buttonWrite.Text = "Write";
-            this.buttonWrite.UseVisualStyleBackColor = true;
-            this.buttonWrite.Click += new System.EventHandler(this.buttonWrite_Click);
+            buttonWrite.Location = new System.Drawing.Point(527, 432);
+            buttonWrite.Name = "buttonWrite";
+            buttonWrite.Size = new System.Drawing.Size(100, 30);
+            buttonWrite.TabIndex = 10;
+            buttonWrite.Text = "Write";
+            buttonWrite.UseVisualStyleBackColor = true;
+            buttonWrite.Click += buttonWrite_Click;
             // 
             // checkBoxSelectAll
             // 
-            this.checkBoxSelectAll.AutoSize = true;
-            this.checkBoxSelectAll.Location = new System.Drawing.Point(493, 130);
-            this.checkBoxSelectAll.Name = "checkBoxSelectAll";
-            this.checkBoxSelectAll.Size = new System.Drawing.Size(134, 29);
-            this.checkBoxSelectAll.TabIndex = 8;
-            this.checkBoxSelectAll.Text = "Select All";
-            this.checkBoxSelectAll.UseVisualStyleBackColor = true;
-            this.checkBoxSelectAll.CheckedChanged += new System.EventHandler(this.checkBoxSelectAll_CheckedChanged);
+            checkBoxSelectAll.AutoSize = true;
+            checkBoxSelectAll.Location = new System.Drawing.Point(493, 130);
+            checkBoxSelectAll.Name = "checkBoxSelectAll";
+            checkBoxSelectAll.Size = new System.Drawing.Size(144, 36);
+            checkBoxSelectAll.TabIndex = 8;
+            checkBoxSelectAll.Text = "Select All";
+            checkBoxSelectAll.UseVisualStyleBackColor = true;
+            checkBoxSelectAll.CheckedChanged += checkBoxSelectAll_CheckedChanged;
             // 
             // ExportForm
             // 
-            this.ClientSize = new System.Drawing.Size(649, 480);
-            this.Controls.Add(this.buttonWrite);
-            this.Controls.Add(this.labelWriteAsString);
-            this.Controls.Add(this.checkBoxWriteAsString);
-            this.Controls.Add(this.checkedListBoxSchedules);
-            this.Controls.Add(this.labelSchedules);
-            this.Controls.Add(this.textBoxFilePath);
-            this.Controls.Add(this.buttonSelectFile);
-            this.Controls.Add(this.labelTitle);
-            this.Controls.Add(this.checkBoxSelectAll);
-            this.Name = "ExportForm";
-            this.Text = "Schedule Exporter";
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            ClientSize = new System.Drawing.Size(649, 480);
+            Controls.Add(buttonWrite);
+            Controls.Add(labelWriteAsString);
+            Controls.Add(checkBoxWriteAsString);
+            Controls.Add(checkedListBoxSchedules);
+            Controls.Add(labelSchedules);
+            Controls.Add(textBoxFilePath);
+            Controls.Add(buttonSelectFile);
+            Controls.Add(labelTitle);
+            Controls.Add(checkBoxSelectAll);
+
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            Name = "ExportForm";
+            Text = "Schedule Exporter";
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 

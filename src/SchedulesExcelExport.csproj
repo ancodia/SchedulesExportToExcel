@@ -9,6 +9,7 @@
 		<Configurations>Debug;Release;Debug-2024;Release-2024;Release-2023;Debug-2023;Release-2022;Debug-2022;Release-2021;Debug-2021;Release-2020;Debug-2020;Debug-2025;Release-2025</Configurations>
 		<OutputPath>..\output\$(Configuration)</OutputPath>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 		<Revit2025 Condition="$(Configuration.Contains('2025'))">true</Revit2025>
 		<Revit2024 Condition="$(Configuration.Contains('2024'))">true</Revit2024>
 		<Revit2023 Condition="$(Configuration.Contains('2023'))">true</Revit2023>
@@ -44,11 +45,11 @@
 		<PackageReference Condition="'$(Revit2021)' == true" Include="Revit_All_Main_Versions_API_x64" Version="2021.0.0" />
 		<PackageReference Condition="'$(Revit2020)' == true" Include="Revit_All_Main_Versions_API_x64" Version="2020.0.1" />
 		<PackageReference Include="EPPlus" Version="7.4.1" />
-		<PackageReference Include="System.Memory" Version="4.5.5" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<EmbeddedResource Include="Properties\Resources.resx" />
+		<EmbeddedResource Include="ScheduleExporter.resx" />
 		<None Update="SchedulesExcelExport.addin">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>

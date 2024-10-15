@@ -23,7 +23,6 @@ namespace SchedulesExcelExport
         {
             UIApplication uiapp = commandData.Application;
             UIDocument uidoc = uiapp.ActiveUIDocument;
-            Autodesk.Revit.ApplicationServices.Application app = uiapp.Application;
             Document doc = uidoc.Document;
             Settings docSettings = doc.Settings;
 
@@ -61,7 +60,7 @@ namespace SchedulesExcelExport
             }
             catch (Exception ex)
             {
-                Autodesk.Revit.UI.TaskDialog.Show("Error", ex.Message);
+                TaskDialog.Show("Error", ex.Message);
                 return Result.Failed;
             }
 
@@ -75,103 +74,33 @@ namespace SchedulesExcelExport
             using (ExcelPackage excelPackage = new())
             {
                 FileInfo excelFile = new(filePath);
+
+                if (excelFile.Exists && IsFileOpen(filePath))
+                {
+                    MessageBox.Show("The Excel file is currently open. Please close it and try again.", "File In Use");
+                    return;
+                }
+
+                // Load content of existing file if it exists
                 if (excelFile.Exists)
                 {
-                    if (IsFileOpen(filePath))
+                    using (FileStream stream = new(filePath, FileMode.Open))
                     {
-                        MessageBox.Show("The Excel file is currently open. Please close it and try again.", "File In Use");
-                        return;
+                        excelPackage.Load(stream);
                     }
-
-                    // Load content of existing file if it exists
-                    using FileStream stream = new(filePath, FileMode.Open);
-                    excelPackage.Load(stream);
                 }
 
                 foreach (ViewSchedule schedule in schedules)
                 {
                     string scheduleName = SanitizeWorksheetName(schedule.Name);
+                    var worksheet = excelPackage.Workbook.Worksheets[scheduleName] ?? excelPackage.Workbook.Worksheets.Add(scheduleName);
 
-                    // Delete existing worksheet if it exists
-                    var worksheet = excelPackage.Workbook.Worksheets[scheduleName];
-                    if (worksheet != null)
-                    {
-                        excelPackage.Workbook.Worksheets.Delete(scheduleName);
-                    }
+                    var data = PrepareScheduleData(schedule, numbersAsStrings);
 
-                    // Export the schedule to CSV
-                    string tempDirectory = Path.GetTempPath();
-                    string tempCsvFilePath = Path.Combine(tempDirectory, $"{scheduleName}.csv");
-
-                    ViewScheduleExportOptions exportOptions = new ViewScheduleExportOptions
-                    {
-                        Title = false,
-                        FieldDelimiter = ",",
-                        TextQualifier = ExportTextQualifier.None
-                    };
-                    schedule.Export(tempDirectory, $"{scheduleName}.csv", exportOptions);
-
-                    // Add new worksheet at the start of the excel workbook
-                    worksheet = excelPackage.Workbook.Worksheets.Add(scheduleName);
-                    excelPackage.Workbook.Worksheets.MoveToStart(scheduleName);
-
-                    using (var reader = new StreamReader(tempCsvFilePath))
-                    {
-                        // Read all lines into an array
-                        var lines = new List<string>();
-                        while (!reader.EndOfStream)
-                        {
-                            lines.Add(reader.ReadLine());
-                        }
-
-                        // Prepare a list for batch writing
-                        var rowCount = lines.Count;
-                        var colCount = lines[0].Split(',').Length; // Assuming all rows have the same number of columns
-                        var data = new List<object[]>(rowCount);
-
-                        for (int row = 0; row < rowCount; row++)
-                        {
-                            var cells = lines[row].Split(',');
-                            var rowData = new object[colCount];
-
-                            for (int col = 0; col < colCount; col++)
-                            {
-                                string cellValue = cells[col].Trim();
-
-                                if (!numbersAsStrings)
-                                {
-                                    // Attempt to convert cell values to numeric types
-                                    if (double.TryParse(cellValue, out double doubleValue))
-                                    {
-                                        rowData[col] = doubleValue;
-                                    }
-                                    else if (int.TryParse(cellValue, out int intValue))
-                                    {
-                                        rowData[col] = intValue;
-                                    }
-                                    else
-                                    {
-                                        rowData[col] = cellValue;
-                                    }
-                                }
-                                else
-                                {
-                                    rowData[col] = cellValue;
-                                }
-                            }
-
-                            data.Add(rowData);
-                        }
-
-                        // Write the entire data list to the worksheet in one go
-                        var startRow = 1;
-                        var startCol = 1;
-
-                        var range = worksheet.Cells[startRow, startCol, startRow + rowCount - 1, startCol + colCount - 1];
-                        range.LoadFromArrays(data);
-                    }
-
-                    File.Delete(tempCsvFilePath);
+                    // Write data directly to the worksheet
+                    var startRow = 1;
+                    var startCol = 1;
+                    worksheet.Cells[startRow, startCol].LoadFromArrays(data.Select(row => row.ToArray()).ToArray());
                 }
 
                 Directory.CreateDirectory(Path.GetDirectoryName(filePath));
@@ -185,6 +114,53 @@ namespace SchedulesExcelExport
                 UseShellExecute = true
             });
         }
+
+        private List<List<object>> PrepareScheduleData(ViewSchedule schedule, bool numbersAsStrings)
+        {
+            TableData tableData = schedule.GetTableData();
+            TableSectionData sectionData = tableData.GetSectionData(SectionType.Body);
+
+            int rowCount = sectionData.NumberOfRows;
+            int colCount = sectionData.NumberOfColumns;
+
+            var data = new List<List<object>>(rowCount);
+
+            for (int row = 0; row < rowCount; row++)
+            {
+                var rowData = new List<object>(colCount);
+
+                for (int col = 0; col < colCount; col++)
+                {
+                    string cellValue = sectionData.GetCellText(row, col).Trim();
+
+                    if (!numbersAsStrings)
+                    {
+                        // Attempt to convert cell value to numeric types
+                        if (double.TryParse(cellValue, out double doubleValue))
+                        {
+                            rowData.Add(doubleValue);
+                        }
+                        else if (int.TryParse(cellValue, out int intValue))
+                        {
+                            rowData.Add(intValue);
+                        }
+                        else
+                        {
+                            rowData.Add(cellValue);
+                        }
+                    }
+                    else
+                    {
+                        rowData.Add(cellValue);
+                    }
+                }
+
+                data.Add(rowData);
+            }
+
+            return data;
+        }
+
 
         private static string SanitizeWorksheetName(string name)
         {
