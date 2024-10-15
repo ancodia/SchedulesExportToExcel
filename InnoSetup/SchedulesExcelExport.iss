@@ -3,7 +3,7 @@
 #define MyAppVersion    "1.0"
 #define MyAppPublisher  "ancodia"
 #define MyAppURL        "https://github.com/ancodia/SchedulesExportToExcel"
-#define MyAppExeName    "SchedulesExcelExport.Revit.exe"
+#define MyAppExeName    "SchedulesExcelExport.Revit.Addin.Installer.exe"
 
 
 #define RevitAppName      "SchedulesExcelExport"
@@ -36,7 +36,7 @@ DefaultGroupName={#MyAppName}
 DisableProgramGroupPage=yes
 DisableWelcomePage=no
 OutputDir={#Repository}\output
-OutputBaseFilename=SchedulesExcelExport.Revit
+OutputBaseFilename=SchedulesExcelExport.Revit.Addin.Installer
 Compression=lzma
 SolidCompression=yes
 ChangesAssociations=yes
