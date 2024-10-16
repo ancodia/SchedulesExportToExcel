@@ -145,13 +145,13 @@ namespace SchedulesExcelExport
 
             for (int row = 0; row < rowCount; row++)
             {
-                if (!IsRowEmpty(sectionData, row, colCount, excludeAllEmptyRows))
+                if (!IsRowEmpty(schedule, row, colCount, excludeAllEmptyRows))
                 {
                     var rowData = new List<object>(colCount);
 
                     for (int col = 0; col < colCount; col++)
                     {
-                        string cellValue = sectionData.GetCellText(row, col).Trim();
+                        string cellValue = schedule.GetCellText(SectionType.Body, row, col).Trim();
 
                         if (!numbersAsStrings)
                         {
@@ -209,7 +209,7 @@ namespace SchedulesExcelExport
         /// Optionally (if `checkAllRows==true`) this method will flag all other rows with no data for exclusion.
         /// </summary>
         private static bool IsRowEmpty(
-            TableSectionData sectionData,
+            ViewSchedule sectionData,
             int rowIndex, 
             int colCount,
             bool checkAllRows = false
@@ -219,7 +219,7 @@ namespace SchedulesExcelExport
             {
                 for (int colIndex = 0; colIndex < colCount; colIndex++)
                 {
-                    string cellValue = sectionData.GetCellText(rowIndex, colIndex);
+                    string cellValue = sectionData.GetCellText(SectionType.Body, rowIndex, colIndex);
 
                     if (!string.IsNullOrWhiteSpace(cellValue))
                     {

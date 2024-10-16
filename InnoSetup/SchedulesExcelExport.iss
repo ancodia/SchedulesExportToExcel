@@ -1,6 +1,6 @@
 #define Repository      "..\."
 #define MyAppName       "Schedules Excel Export Revit Add-in"
-#define MyAppVersion    "1.0"
+#define MyAppVersion    "1.0.1"
 #define MyAppPublisher  "ancodia"
 #define MyAppURL        "https://github.com/ancodia/SchedulesExportToExcel"
 #define MyAppExeName    "SchedulesExcelExport.Revit.Addin.Installer.exe"
