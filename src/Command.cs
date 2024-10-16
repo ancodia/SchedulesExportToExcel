@@ -81,7 +81,7 @@ namespace SchedulesExcelExport
             {
                 FileInfo excelFile = new(filePath);
 
-                if (excelFile.Exists && IsFileOpen(filePath))
+                if (excelFile.Exists && Helper.IsFileOpen(filePath))
                 {
                     MessageBox.Show("The Excel file is currently open. Please close it and try again.", "File In Use");
                     return;
@@ -188,20 +188,6 @@ namespace SchedulesExcelExport
             string sanitized = Regex.Replace(name, @"[:\\/[\]*?]", "");
 
             return sanitized;
-        }
-
-        private static bool IsFileOpen(string filePath)
-        {
-            try
-            {
-                using FileStream stream = new(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
-                stream.Close();
-            }
-            catch (IOException)
-            {
-                return true;
-            }
-            return false;
         }
 
         /// <summary>

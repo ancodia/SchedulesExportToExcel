@@ -262,6 +262,30 @@ namespace ScheduleExporter
                 .Cast<string>()
                 .ToList();
 
+            // Check if SelectedFilePath or SelectedSchedules is empty
+            if (string.IsNullOrWhiteSpace(SelectedFilePath) || SelectedSchedules.Count == 0)
+            {
+                MessageBox.Show(
+                    "Please create or select a file and at least one schedule.", 
+                    "Input Required", 
+                    MessageBoxButtons.OK, 
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+
+            // Check if the file at SelectedFilePath is currently open
+            if (Helper.IsFileOpen(textBoxFilePath.Text))
+            {
+                MessageBox.Show(
+                    "The selected file is currently open. Please close it before proceeding.", 
+                    "File In Use", 
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
