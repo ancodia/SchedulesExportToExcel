@@ -35,17 +35,13 @@ namespace ScheduleExporter
         {
             InitializeComponent();
 
-            // Store the original schedule names
             _originalScheduleNames = scheduleNames;
 
-            // Initialize selection states
             _selectionStates = new List<bool>(new bool[scheduleNames.Count]);
 
-            // Populate the CheckedListBox with the schedule names
             PopulateSchedules(scheduleNames);
         }
 
-        // Populates the CheckedListBox with the provided schedule names
         private void PopulateSchedules(List<string> scheduleNames)
         {
             checkedListBoxSchedules.Items.Clear();
@@ -55,7 +51,6 @@ namespace ScheduleExporter
                 checkedListBoxSchedules.Items.Add(schedule);
             }
 
-            // Restore selection states after repopulating
             for (int i = 0; i < scheduleNames.Count; i++)
             {
                 checkedListBoxSchedules.SetItemChecked(i, _selectionStates[i]);
@@ -253,7 +248,6 @@ namespace ScheduleExporter
 
         private void buttonWrite_Click(object sender, EventArgs e)
         {
-            // Set the properties before closing the form
             SelectedFilePath = textBoxFilePath.Text;
             WriteAsString = checkBoxWriteAsString.Checked;
             ExcludeEmptyRows = checkBoxExcludeEmpty.Checked;
@@ -262,7 +256,6 @@ namespace ScheduleExporter
                 .Cast<string>()
                 .ToList();
 
-            // Check if SelectedFilePath or SelectedSchedules is empty
             if (string.IsNullOrWhiteSpace(SelectedFilePath) || SelectedSchedules.Count == 0)
             {
                 MessageBox.Show(
@@ -274,7 +267,6 @@ namespace ScheduleExporter
                 return;
             }
 
-            // Check if the file at SelectedFilePath is currently open
             if (Helper.IsFileOpen(textBoxFilePath.Text))
             {
                 MessageBox.Show(
