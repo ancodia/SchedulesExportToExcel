@@ -23,9 +23,6 @@ namespace ScheduleExporter
         private Label labelExcludeEmpty;
         private CheckBox checkBoxExcludeEmpty;
 
-        private List<string> _originalScheduleNames;
-        private List<bool> _selectionStates;
-
         public string SelectedFilePath { get; private set; }
         public bool WriteAsString { get; private set; }
         public bool ExcludeEmptyRows { get; private set; }
@@ -34,11 +31,6 @@ namespace ScheduleExporter
         public ExportForm(List<string> scheduleNames)
         {
             InitializeComponent();
-
-            _originalScheduleNames = scheduleNames;
-
-            _selectionStates = new List<bool>(new bool[scheduleNames.Count]);
-
             PopulateSchedules(scheduleNames);
         }
 
@@ -49,11 +41,6 @@ namespace ScheduleExporter
             foreach (var schedule in scheduleNames)
             {
                 checkedListBoxSchedules.Items.Add(schedule);
-            }
-
-            for (int i = 0; i < scheduleNames.Count; i++)
-            {
-                checkedListBoxSchedules.SetItemChecked(i, _selectionStates[i]);
             }
         }
 

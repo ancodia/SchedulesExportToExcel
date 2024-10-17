@@ -40,7 +40,6 @@ namespace SchedulesExcelExport
 
             try
             {
-                // Initialize and show the WinForm
                 ExportForm exportForm = new(scheduleNames);
                 var result = exportForm.ShowDialog();
 
@@ -87,7 +86,6 @@ namespace SchedulesExcelExport
                     return;
                 }
 
-                // Load content of existing file if it exists
                 if (excelFile.Exists)
                 {
                     using (FileStream stream = new(filePath, FileMode.Open))
@@ -103,7 +101,6 @@ namespace SchedulesExcelExport
 
                     var data = PrepareScheduleData(schedule, numbersAsStrings, excludeEmptyAllRows);
 
-                    // Write data directly to the worksheet
                     var startRow = 1;
                     var startCol = 1;
                     worksheet.Cells[startRow, startCol].LoadFromArrays(data.Select(row => row.ToArray()).ToArray());
@@ -111,7 +108,7 @@ namespace SchedulesExcelExport
 
                 Directory.CreateDirectory(Path.GetDirectoryName(filePath));
 
-                // Remove the default sheet "Sheet1" if it is present
+                // Remove the default sheet if it is present
                 ExcelWorksheet defaultSheet = excelPackage.Workbook.Worksheets["Sheet1"];
                 if (defaultSheet != null)
                 {
@@ -174,7 +171,6 @@ namespace SchedulesExcelExport
                             rowData.Add(cellValue);
                         }
                     }
-
                     data.Add(rowData);
                 }
             }
@@ -195,7 +191,7 @@ namespace SchedulesExcelExport
         /// Optionally (if `checkAllRows==true`) this method will flag all other rows with no data for exclusion.
         /// </summary>
         private static bool IsRowEmpty(
-            ViewSchedule sectionData,
+            ViewSchedule schedule,
             int rowIndex, 
             int colCount,
             bool checkAllRows = false
@@ -205,14 +201,13 @@ namespace SchedulesExcelExport
             {
                 for (int colIndex = 0; colIndex < colCount; colIndex++)
                 {
-                    string cellValue = sectionData.GetCellText(SectionType.Body, rowIndex, colIndex);
+                    string cellValue = schedule.GetCellText(SectionType.Body, rowIndex, colIndex);
 
                     if (!string.IsNullOrWhiteSpace(cellValue))
                     {
                         return false;
                     }
                 }
-
                 return true;
             }
             else
